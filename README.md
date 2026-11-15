@@ -1,6 +1,6 @@
 # The Machines We Left Behind · C.U.R.I.O.
 
-**NASA Space Apps Challenge · Storytelling track**
+**NASA Space Apps Challenge · Storytelling track** 
 
 An immersive, narrated journey to the machines humans sent ahead of themselves and then left behind. You travel into space, choose a world, walk its surface, find a silent robot, and hear its story told by **C.U.R.I.O.** — Caretaker of Unheard Robots In Orbit — an old, warm, slightly creaky caretaker who remembers cassette tapes and has kept their stories so somebody still knows their names.
 
@@ -211,3 +211,6 @@ Story facts, photographs, coordinates and 3D models come from the NASA Image and
 **No NASA logo, insignia or seal is used anywhere.** The three mission patches and the certificate are original artwork, and the certificate states that it is a NASA Space Apps Challenge project rather than an official NASA document.
 
 Three honest caveats are recorded in the app's own data notes: "My battery is low and it's getting dark" is a reporter's paraphrase of Opportunity's final telemetry, not a transmitted message; Apollo event dates cross midnight UT, so US-local dates can read a day earlier; and Earth-side coordinates and Opportunity's final resting position are approximate and flagged as such.
+
+
+**Readme file and big parts of this work were made with the help of Claude Code**
