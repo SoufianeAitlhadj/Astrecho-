@@ -125,7 +125,7 @@ npm run build:standalone
 
 Vercel auto-detects Vite: framework **Vite**, build command `npm run build`, output directory `dist`. No `vercel.json` needed — the app is a single page with no client-side router.
 
-**Set the Root Directory.** The git repository root is two levels above this app, so in **Vercel → Settings → General → Root Directory** set `final_version/curio-app`. Otherwise Vercel won't find `package.json` and the build fails immediately. (Alternatively, `git init` inside `curio-app` and push that as its own repo.)
+**Check the Root Directory.** It must point at the folder that holds `package.json`. In the published repository ([SoufianeAitlhadj/Astrecho-](https://github.com/SoufianeAitlhadj/Astrecho-)) this app *is* the repository root, so **Vercel → Settings → General → Root Directory** must be left **empty** (`./`). Pointing it at a subfolder such as `final_version/curio-app` makes Vercel miss `package.json`, and the build — and with it `api/curio.js` — fails immediately. If you ever deploy from a repository where the app sits in a subfolder, set that subfolder's path here instead.
 
 Three more things to settle before the first deploy:
 
@@ -198,6 +198,7 @@ The models are then fetched at build time and bundled into the deployment. If NA
 - **3D panel says "Model feed offline"** — run `npm run fetch-models` (needs internet), then restart the dev server.
 - **Video panel says "VIDEO FILE NOT FOUND"** — the `.mp4` isn't where it's expected. The panel's **Choose video file** button always works as a fallback.
 - **Chat header says `ARCHIVE MODE`** — no API key in that browser. Paste one into the chat panel, or set `VITE_OPENAI_API_KEY` in `.env.local` and restart.
+- **Deployed, but the chat never calls OpenAI** — open `https://<your-deployment>/api/curio` in a browser. `{"configured":true}` means the function is live and holds the key, so the fault is in the request itself. `{"configured":false}` means `OPENAI_API_KEY` isn't reaching the function: check the spelling, that it is enabled for the Production environment, and redeploy — variables added after a build only apply to the next one. HTML or a 404 means the function was never deployed, which is almost always a wrong **Root Directory**.
 
 ---
 
