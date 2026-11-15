@@ -163,12 +163,3 @@ Used only to cross-check details of the stories, never for imagery:
 
 ---
 
-## 8. Honest caveats recorded with the data
-
-- "My battery is low and it's getting dark" is a reporter's paraphrase of
-  Opportunity's final telemetry, not a message the rover transmitted.
-- Apollo events cross midnight UT, so US-local dates can read one day earlier
-  than the UT dates in NSSDCA.
-- Earth-side coordinates (Grumman Bethpage, JPL, NASA Ames, Cornell) and
-  Opportunity's final resting spot are approximate, and are flagged as
-  approximate in the data.
