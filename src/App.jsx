@@ -5,6 +5,7 @@ import { useProfile } from "./context/ProfileContext";
 import { sound } from "./audio/SoundEngine";
 import { formatCoords } from "./lib/mission";
 import Starfield from "./components/Starfield";
+import AskCurio from "./components/AskCurio";
 import HudBar from "./components/HudBar";
 import PassportModal from "./components/PassportModal";
 import TravelOverlay from "./components/TravelOverlay";
@@ -33,6 +34,7 @@ export default function App() {
   const [destId, setDestId] = useState(null);
   const [travelTo, setTravelTo] = useState(null);
   const [passportOpen, setPassportOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const [stampPulse, setStampPulse] = useState(0);
   const returning = useRef(!!profile.name).current;
   const timers = useRef([]);
@@ -100,7 +102,12 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-obsidian text-parchment">
       <Starfield warp={!!travelTo} />
-      <HudBar onOpenPassport={openPassport} location={locationLabel(screen, dest)} stampPulse={stampPulse} />
+      <HudBar
+        onOpenPassport={openPassport}
+        onAskCurio={() => setChatOpen(true)}
+        location={locationLabel(screen, dest)}
+        stampPulse={stampPulse}
+      />
 
       <div className="transition-opacity duration-700" style={{ opacity: travelTo ? 0 : 1 }}>
       <AnimatePresence mode="wait">
@@ -120,6 +127,7 @@ export default function App() {
 
       <AnimatePresence>{travelDest && <TravelOverlay destination={travelDest} name={profile.name} duration={TRAVEL_MS / 1000} />}</AnimatePresence>
       <PassportModal open={passportOpen} onClose={() => setPassportOpen(false)} />
+      <AskCurio open={chatOpen} onOpenChange={setChatOpen} />
 
       <div className="film-grain" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />

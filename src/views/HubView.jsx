@@ -58,7 +58,7 @@ function DestinationCard({ dest, index, stamped, onSelect }) {
         )}
       </div>
 
-      <h3 className="font-serif text-5xl leading-none text-parchment">{dest.name}</h3>
+      <h3 className="font-serif text-3xl leading-none text-parchment">{dest.name}</h3>
       <p className="mt-2 font-mono text-[10px] tracking-[0.22em] text-parchment/50">{dest.surfaceName.toUpperCase()}</p>
       <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-4">
         <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-signal">
@@ -82,7 +82,7 @@ export default function HubView({ onSelect, returning }) {
         <CurioAvatar size={120} speaking={speaking} />
         <div className="max-w-2xl flex-1">
           <p className="hud-label">Mission map · Select a world</p>
-          <Dialogue text={fillTemplate(hubLine(profile.name, stampCount, returning), {})} onSpeakingChange={setSpeaking} textClassName="text-lg md:text-xl" />
+          <Dialogue text={fillTemplate(hubLine(profile.name, stampCount, returning), {})} onSpeakingChange={setSpeaking} textClassName="text-sm md:text-base" />
         </div>
       </div>
 

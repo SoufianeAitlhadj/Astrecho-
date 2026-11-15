@@ -79,7 +79,7 @@ function LockedBadge({ device }) {
       <p className="mt-2 flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em] text-warn">
         <Lock size={11} /> SIGNAL WEAK · ARCHIVE LOCKED
       </p>
-      <p className="mt-1 font-serif text-xl leading-tight text-parchment">{device.name}</p>
+      <p className="mt-1 font-serif text-base leading-tight text-parchment">{device.name}</p>
       <ul className="mt-2 space-y-0.5 border-t border-white/10 pt-2">
         {device.hud.readout.map((line) => (
           <li key={line} className="font-mono text-[10px] leading-4 text-parchment/70">
@@ -92,7 +92,7 @@ function LockedBadge({ device }) {
           </li>
         )}
       </ul>
-      <p className="mt-2 font-serif text-[15px] italic leading-snug text-parchment/80">&ldquo;{device.hud.curioWhisper}&rdquo;</p>
+      <p className="mt-2 font-serif text-[13px] italic leading-snug text-parchment/80">&ldquo;{device.hud.curioWhisper}&rdquo;</p>
       <p className="mt-2 font-mono text-[9px] leading-4 tracking-[0.08em] text-parchment/35">{LOCKED_HUD.footer}</p>
     </motion.div>
   );
@@ -422,12 +422,12 @@ export default function SurfaceView({ destination, onBack, onDiscover }) {
             <ArrowLeft size={14} /> Return to orbit
           </HudButton>
           <p className="hud-label">Surface scan · {String(destination.order).padStart(2, "0")}</p>
-          <h1 className="font-serif text-5xl leading-none text-parchment drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)] md:text-7xl">{destination.name}</h1>
+          <h1 className="font-serif text-3xl leading-none text-parchment drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)] md:text-5xl">{destination.name}</h1>
           <p className="mt-2 font-mono text-[10px] tracking-[0.25em] text-parchment/60">{destination.surfaceName.toUpperCase()}</p>
         </div>
         <div className="hidden text-right md:block">
           <p className="hud-label">Scan coverage</p>
-          <p className="font-mono text-3xl text-signal">{String(Math.max(0, Math.min(100, scan))).padStart(3, "0")}%</p>
+          <p className="font-mono text-xl text-signal">{String(Math.max(0, Math.min(100, scan))).padStart(3, "0")}%</p>
           <p className="mt-1 font-mono text-[10px] tracking-[0.2em] text-parchment/50">SIGNALS 1 · LOCKED {destination.backgroundDevices.length}</p>
         </div>
       </div>
@@ -436,7 +436,7 @@ export default function SurfaceView({ destination, onBack, onDiscover }) {
       <div className="absolute left-4 right-4 top-[216px] z-30 md:bottom-8 md:left-8 md:right-auto md:top-auto md:w-[460px]">
         <div className="hud-glass flex gap-4 rounded-sm p-4">
           <CurioAvatar size={74} speaking={speaking} className="hidden shrink-0 sm:block" />
-          <Dialogue key={line} text={dialogueText} onSpeakingChange={setSpeaking} textClassName="text-[15px]" channel="SURFACE COMMS">
+          <Dialogue key={line} text={dialogueText} onSpeakingChange={setSpeaking} textClassName="text-[13px]" channel="SURFACE COMMS">
             {line === "hero" && (
               <HudButton variant="primary" onClick={onDiscover} className="!py-2">
                 <ScanLine size={13} /> Discover {destination.heroDevice.shortName}

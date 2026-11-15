@@ -65,6 +65,43 @@ const nssdc = (cosparId) =>
   `https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=${cosparId}`;
 
 /* ------------------------------------------------------------------ */
+/* 0. VIDEOS — one per mission. Sources are tried in order.            */
+/*    1) public/videos/VideoN.mp4  (works on localhost + hosting)      */
+/*    2) a "videos" folder next to OPEN-ME.html (double-click build)   */
+/* ------------------------------------------------------------------ */
+
+// `src`         → relative to the app (file lives in public/videos/)
+// `fallback`    → tried next, so OPEN-ME.html opened by double-click from the
+//                 project folder still finds the file in public/videos/
+// `summary`     → plain-language description of what the film shows. The
+//                 Ask C.U.R.I.O. knowledge base reads this, so keep it true.
+// `coversChapters` → which story chapters the narration follows.
+export const VIDEOS = {
+  // No film for the Moon chapter yet. VideoPanel hides itself when this is null.
+  moon: null,
+  mars: {
+    title: "Mars · Opportunity",
+    src: "videos/Video2.mp4",
+    fallback: "public/videos/Video2.mp4",
+    file: "Opportunity_vox.mp4",
+    runtimeNote: "Narrated mission film",
+    summary:
+      "A narrated film about the Mars Exploration Rover Opportunity (MER-B): the naming contest won by 9-year-old Sofi Collis, the airbag landing that rolled into Eagle Crater in January 2004, the hematite 'blueberries' that proved water once soaked the rocks of Meridiani Planum, the marathon drive, and the 2018 planet-wide dust storm that ended the mission in Perseverance Valley.",
+    coversChapters: [1, 2, 3, 4],
+  },
+  deepSpace: {
+    title: "Deep Space · Pioneer 10",
+    src: "videos/Video3.mp4",
+    fallback: "public/videos/Video3.mp4",
+    file: "pioneer10_vox.mp4",
+    runtimeNote: "Narrated mission film",
+    summary:
+      "A narrated film about Pioneer 10: Charles Hall's small, tough probe built at NASA Ames with TRW, the gold plaque that Carl Sagan, Frank Drake and Linda Salzman Sagan designed in about three weeks, the first crossing of the asteroid belt and first flyby of Jupiter, and the long silent drift toward the star Aldebaran after the final faint signal in 2003.",
+    coversChapters: [1, 2, 3, 4],
+  },
+};
+
+/* ------------------------------------------------------------------ */
 /* 1. ASSETS — every NASA URL in one place                             */
 /* ------------------------------------------------------------------ */
 
@@ -304,6 +341,7 @@ const moon = {
 
   heroDevice: {
     id: "apollo11-eagle",
+    video: VIDEOS.moon,
     name: "Apollo 11 Lunar Module 'Eagle'",
     shortName: "Eagle",
     whatYouSee: "Eagle's descent stage (the bottom half), still standing where it landed",
@@ -698,6 +736,7 @@ const mars = {
 
   heroDevice: {
     id: "mer-b-opportunity",
+    video: VIDEOS.mars,
     name: "Mars Exploration Rover 'Opportunity' (MER-B)",
     shortName: "Opportunity",
     nickname: "Oppy",
@@ -1117,6 +1156,7 @@ const deepSpace = {
 
   heroDevice: {
     id: "pioneer-10",
+    video: VIDEOS.deepSpace,
     name: "Pioneer 10",
     shortName: "Pioneer 10",
     inProvidedList: true,

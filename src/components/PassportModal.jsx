@@ -149,7 +149,7 @@ export default function PassportModal({ open, onClose }) {
                 <div className="flex flex-wrap items-start justify-between gap-2 border-b border-[#c9a24a]/30 pb-4">
                   <div>
                     <p className="font-mono text-[10px] tracking-[0.35em] text-[#c9a24a]">C.U.R.I.O. OFFICE OF UNHEARD ROBOTS</p>
-                    <h2 className="font-serif text-3xl text-parchment md:text-4xl">Space Explorer Passport</h2>
+                    <h2 className="font-serif text-xl text-parchment md:text-2xl">Space Explorer Passport</h2>
                   </div>
                   <div className="text-right font-mono text-[10px] leading-5 tracking-[0.2em] text-parchment/60">
                     <div>TYPE · P</div>
@@ -164,7 +164,7 @@ export default function PassportModal({ open, onClose }) {
                   <div className="grid grid-cols-2 gap-x-6 gap-y-3">
                     <div className="col-span-2">
                       <p className="hud-label text-[9px]">Astronaut</p>
-                      <p className="font-serif text-4xl leading-tight text-parchment md:text-5xl">{profile.name || "—"}</p>
+                      <p className="font-serif text-2xl leading-tight text-parchment md:text-3xl">{profile.name || "—"}</p>
                     </div>
                     <div>
                       <p className="hud-label text-[9px]">Passport No.</p>

@@ -177,7 +177,7 @@ export default function ModelPanel({ device, modelKey, chapterIndex, destination
       {/* top-left: identity */}
       <div className="pointer-events-none absolute left-8 top-8 max-w-[60%]">
         <p className="hud-label text-[9px]">3D INSPECTION · {device.nssdcId ? `NSSDCA ${device.nssdcId}` : "NASA"}</p>
-        <p className="mt-1 font-serif text-2xl leading-tight text-parchment md:text-3xl">{device.shortName}</p>
+        <p className="mt-1 font-serif text-lg leading-tight text-parchment md:text-xl">{device.shortName}</p>
         <p className="font-mono text-[10px] tracking-[0.18em] text-parchment/50">MODEL · {device.model.credit?.toUpperCase()}</p>
       </div>
 

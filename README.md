@@ -1,81 +1,208 @@
 # The Machines We Left Behind · C.U.R.I.O.
 
-NASA Space Apps Challenge · Storytelling track
-React 19 · Vite · Tailwind CSS v4 · Framer Motion · Lucide · Google `<model-viewer>` · Web Audio API
+**NASA Space Apps Challenge · Storytelling track**
 
-## Quick start
+An immersive, narrated journey to the machines humans sent ahead of themselves and then left behind. You travel into space, choose a world, walk its surface, find a silent robot, and hear its story told by **C.U.R.I.O.** — Caretaker of Unheard Robots In Orbit — an old, warm, slightly creaky caretaker who remembers cassette tapes and has kept their stories so somebody still knows their names.
 
-### Option A: no install (just look at it)
-Double-click **`OPEN-ME.html`**. It's the whole app in one file and works in Chrome, Edge, Firefox or Safari on a laptop.
-(Do **not** double-click `index.html`: that's the source page and needs the dev server.)
+Everything in it is built on real, open NASA data: real coordinates, real archive photographs, real 3D models, real mission records.
 
-### Option B: run the project (for editing)
-Needs **Node.js 18.18 or newer** (`node -v` to check).
+---
+
+## The experience
+
+It is meant to be *lived*, not read. Every screen has a synthesized soundscape, a talking robot with an oscilloscope mouth, film grain, scanlines and a warp drive, and nothing is behind a loading wall.
+
+**The journey**
+
+1. **Initialize comms.** C.U.R.I.O. wakes up, introduces himself and asks your name. You are issued a Space Explorer Passport with three empty stamp slots.
+2. **Travel.** From the mission map in high Earth orbit you choose where to go: **the Moon**, **Mars**, or **Deep Space**. The starfield warps and a countdown runs as you fly there.
+3. **Walk the surface.** You slide sideways across a real NASA panorama of that world. Old machines stand in the dust. Most are locked — `TELEMETRY LOST`, `SIGNAL LOCKED` — and C.U.R.I.O. whispers about them as you pass. One of them still answers.
+4. **Discover a machine.** Click it and its story opens: a NASA 3D model you can rotate and inspect on the left, and on the right the narrated film, the real archive photographs, and four written chapters that follow the machine from the drawing board to the place it stopped.
+5. **Earn your stamp.** Two questions. Get both right and the stamp slams into your passport. No free stamps — wrong answers get a hint, never the answer.
+6. **Finish.** Three stamps unlocks the Space Relic Historian certificate, printable from your passport.
+
+**The three machines:** Apollo 11's lunar module *Eagle*, still standing in the Sea of Tranquility · the rover *Opportunity*, parked in Perseverance Valley on Mars · the probe *Pioneer 10*, drifting silently toward the star Aldebaran.
+
+---
+
+## How the media was made
+
+**The films** — AI-generated **Vox-style explainers** built from **real NASA images and real NASA mission information**: motion graphics, annotated archive photography and data-driven visuals, cut to the beat of the narration. One film per mission:
+
+| Story page | File | Runtime |
+|---|---|---|
+| Mars · Opportunity | `public/videos/Video2.mp4` (`Opportunity_vox.mp4`) | 1:57 |
+| Deep Space · Pioneer 10 | `public/videos/Video3.mp4` (`pioneer10_vox.mp4`) | 3:33 |
+| The Moon · Eagle | not made yet — the panel hides itself | — |
+
+**The narration** — generated with the **ElevenLabs API** using the **Vincent** voice, chosen for its deep, relaxed delivery: the voice of someone telling you a story rather than reading you a report.
+
+**The sound effects** — not files. Every sound in the app is **synthesized live in the browser** with the Web Audio API: a detuned ambient drone that breathes through a moving low-pass filter, relay-click typing that drives C.U.R.I.O.'s mouth in real time, radar pips on hover, a resonant sweep for warp travel, and a stamp impact built from a pitch-dropping kick, inharmonic metal partials and a Cmaj9 chord through a reverb generated in code.
+
+---
+
+## Ask C.U.R.I.O. — the RAG assistant
+
+A floating **Ask C.U.R.I.O.** button sits on every screen, with a second one in the top HUD bar. It opens a chat with C.U.R.I.O. himself — **fun, warm and supportive**, never condescending, because many visitors are kids. He answers questions about the films, the photographs and the story texts.
+
+He is a **retrieval-augmented (RAG) assistant over a fixed corpus of official NASA information**, not a free-roaming chatbot:
+
+- **The corpus** is built from the NASA Space Apps reference library (NASA Image and Video Library, NSSDCA Master Catalog, JPL Photojournal, NASA 3D Resources, science.nasa.gov mission pages, NASA media guidelines), plus every story chapter, photo caption, telemetry readout and film description in the app — about **48 retrievable chunks**.
+- **Retrieval runs in the browser.** A BM25 index with title weighting, phrase bonuses and visitor-to-archive synonyms ("video" → "film", "picture" → "photograph") picks the best five chunks. No embeddings, no vector database, no extra network call.
+- **Generation is grounded.** Those five chunks go to the ChatGPT API numbered `[S1]`–`[S5]` with instructions to use nothing else and to cite every fact.
+- **Every answer carries its sources.** Citations render as amber chips inside the answer, with the matching NASA links listed underneath, so any claim can be checked at its source in one click.
+- **It says "I don't know."** If the archive has no answer, C.U.R.I.O. says so warmly instead of inventing one. Quiz answers are deliberately excluded from the corpus, so the stamps still have to be earned.
+- **It survives a dead connection.** With no key or no internet it answers straight from the local archive with the same source list. The demo never dies on stage.
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| UI framework | **React 19** |
+| Build tool | **Vite 6** (plus `vite-plugin-singlefile` for the offline one-file build) |
+| Styling | **Tailwind CSS v4** (`@tailwindcss/vite`), custom HUD design tokens |
+| Animation | **Framer Motion 12** — page transitions, scrollytelling, stamp physics |
+| Icons | **Lucide React** |
+| 3D | **Google `<model-viewer>`** rendering official NASA `.glb` models |
+| Audio | **Web Audio API** — all sound effects synthesized at runtime, no audio assets |
+| Narration | **ElevenLabs API** — "Vincent" voice (deep, relaxing) |
+| Films | AI-generated **Vox-style** explainers from real NASA imagery and data |
+| Chatbot | **OpenAI Chat Completions API** (`gpt-4o-mini` by default) |
+| Retrieval | Custom **BM25** index, written from scratch, runs client-side |
+| State | React Context + `localStorage` (passport, stamps, mute, API key) |
+| Live NASA data | NASA Image and Video Library API (`images-api.nasa.gov`), no key required |
+| Hosting | **Vercel** |
+
+No backend, no database, no build-time content pipeline. The whole thing is a static site.
+
+---
+
+## Run it locally
+
+Needs **Node.js 18.18+**.
 
 ```bash
 npm install
-npm run fetch-models   # downloads the 3 NASA .glb hero models into public/models (do this before the demo)
-npm run dev            # open the address it prints, usually http://localhost:5173
 ```
-
-Other commands:
 
 ```bash
-npm run build              # site for hosting → dist/ (drag dist/ onto Netlify, or `vercel deploy`)
-npm run build:standalone   # rebuilds OPEN-ME.html → dist-standalone/index.html
+npm run fetch-models
 ```
 
-### If something fails
-- **`crypto.hash is not a function` or "Vite requires Node.js…"**: your Node is too old. Install the LTS version from nodejs.org.
-- **`Cannot find module @rollup/rollup-…` or `lightningcss…`**: delete `node_modules` and `package-lock.json`, then run `npm install` again.
-- **Blank page**: you opened `index.html` directly. Use `OPEN-ME.html` or `npm run dev`.
-- **3D panel says "Model feed offline"**: run `npm run fetch-models` (needs internet), then restart `npm run dev`.
+```bash
+npm run dev
+```
 
-## Why `npm run fetch-models` matters
+`fetch-models` downloads the three NASA `.glb` models into `public/models/` so the 3D viewer doesn't depend on NASA's CORS headers at demo time. Do it before presenting.
 
-The 3D models live on `assets.science.nasa.gov`. If that server doesn't allow cross-site downloads from your domain, `<model-viewer>` can't load them straight from NASA. The script saves local copies and writes `public/models/manifest.json`, and the app uses the local copy when one exists, falling back to the NASA URL otherwise. If both fail, the 3D panel shows a "Model feed offline" state with a link to the NASA page, and the rest of the app keeps working.
+**For the chatbot**, copy `.env.example` to `.env.local` and add your key:
 
-## Where each feature lives
+```bash
+VITE_OPENAI_API_KEY=sk-...
+```
 
-| Feature | File |
+You can also paste the key straight into the chat panel, which keeps it in that browser only. Without a key the chat still answers from the local archive.
+
+**Other commands**
+
+```bash
+npm run build
+```
+
+```bash
+npm run build:standalone
+```
+
+`build:standalone` produces `dist-standalone/index.html` — the entire app inlined into one file that runs by double-click with no server. `OPEN-ME.html` in the project root is a copy of it.
+
+---
+
+## Deploying to Vercel
+
+Vercel auto-detects Vite: framework **Vite**, build command `npm run build`, output directory `dist`. No `vercel.json` needed — the app is a single page with no client-side router.
+
+**Set the Root Directory.** The git repository root is two levels above this app, so in **Vercel → Settings → General → Root Directory** set `final_version/curio-app`. Otherwise Vercel won't find `package.json` and the build fails immediately. (Alternatively, `git init` inside `curio-app` and push that as its own repo.)
+
+Three more things to settle before the first deploy:
+
+### 1. The API key — already handled, but set the right variable
+
+This is a browser-only app, so anything named `VITE_*` is **compiled into the public JavaScript bundle**. A key put there can be read by any visitor with devtools open.
+
+So the deployment uses a serverless function instead, [`api/curio.js`](api/curio.js), which Vercel picks up automatically. In **Vercel → Settings → Environment Variables** set:
+
+| Name | Value |
 |---|---|
-| Sound engine (drone, typing clicks, radar pips, whoosh, buzz, chime, stamp thud + chord) | `src/audio/SoundEngine.js` |
-| Mute toggle, profile/passport state (saved in localStorage) | `src/context/SoundContext.jsx`, `src/context/ProfileContext.jsx` |
-| Top HUD bar (astronaut, stamps x/3, passport button, mute) | `src/components/HudBar.jsx` |
-| "Initialize Comms" splash + airlock | `src/views/SplashView.jsx` |
+| `OPENAI_API_KEY` | your key — **no** `VITE_` prefix |
+| `OPENAI_MODEL` | optional, defaults to `gpt-4o-mini` |
+
+**Do not set `VITE_OPENAI_API_KEY` in Vercel.** That is the one that leaks.
+
+The chat wires itself up: on load it asks `GET /api/curio` whether a key is configured, and if so it routes every question through the function and stops offering the "paste a key" box. The panel header reads `SECURE UPLINK` when it is using the function. Retrieval still runs in the browser, so only the question and the five chosen excerpts cross the wire, and the function — not the caller — decides the model, the system prompt and the token ceiling.
+
+Locally there is no function, so `npm run dev` falls back to `VITE_OPENAI_API_KEY` from `.env.local` or a key pasted into the panel. Both paths share the same prompt and call logic in [`src/knowledge/llm.js`](src/knowledge/llm.js).
+
+### 2. The video files
+
+The two `.mp4`s total about **103 MB** and are **committed**, so they ship with the deployment. They sit under GitHub's 100 MB per-file hard limit (62 MB and 40 MB) but above its 50 MB warning threshold, so expect a warning on push.
+
+If the repo gets too heavy, or a push is rejected: host them on Vercel Blob, Cloudflare R2, S3 or any CDN, put the full `https://...` URL in `VIDEOS[...].src` in `src/data/missionData.js`, and re-add `public/videos/*.mp4` to `.gitignore`. The player accepts an absolute URL with no other change.
+
+### 3. The 3D models
+
+`public/models/*.glb` is also gitignored, and `public/models/manifest.json` is currently empty — so a deployed build falls back to loading models straight from `assets.science.nasa.gov`. That works, but it is slower and depends on NASA's CORS headers.
+
+To serve them from your own domain, change the build command in Vercel to:
+
+```bash
+npm run fetch-models && npm run build
+```
+
+The models are then fetched at build time and bundled into the deployment. If NASA is unreachable during a build, the script skips that model and the app falls back to the NASA URL, so the build won't fail.
+
+---
+
+## Project structure
+
+| Area | Files |
+|---|---|
+| All story text, dates, coordinates, quizzes, stamps, NASA URLs, film entries | `src/data/missionData.js` |
+| Chat panel and launcher buttons | `src/components/AskCurio.jsx` |
+| RAG corpus, BM25 retrieval, ChatGPT call | `src/knowledge/` |
+| Shared prompt + OpenAI call (browser and server) | `src/knowledge/llm.js` |
+| Serverless key proxy for Vercel | `api/curio.js` |
+| NASA reference library (markdown, one section per source) | `src/knowledge/docs/` |
+| Sound engine | `src/audio/SoundEngine.js` |
 | C.U.R.I.O. robot + live oscilloscope mouth | `src/components/CurioAvatar.jsx` |
-| Typewriter dialogue (synced clicks, click to skip) | `src/components/Dialogue.jsx`, `src/hooks/useTypewriter.js` |
-| Onboarding (name → passport → intro story) | `src/views/OnboardingView.jsx` |
-| Destination cards (stamp Locked / Completed) | `src/views/HubView.jsx`, `src/components/PlanetOrb.jsx` |
-| Warp travel + countdown | `src/components/Starfield.jsx`, `src/components/TravelOverlay.jsx` |
-| Horizontal parallax surface, locked devices, hero radar, minimap | `src/views/SurfaceView.jsx`, `src/components/DeviceSilhouette.jsx` |
-| Split-screen scrollytelling | `src/views/StoryView.jsx` |
-| 3D viewer, Blueprint mode, chapter camera moves, telemetry | `src/components/ModelPanel.jsx` |
-| Real NASA photos as polaroids (verified IDs + live NASA Image Library search) | `src/components/ArchiveFrames.jsx`, `src/lib/mission.js` |
-| Memory-check quiz with C.U.R.I.O. hints | `src/components/Quiz.jsx` |
-| STAMP SLAM animation (drop → impact → fly into passport) | `src/components/StampSlam.jsx` |
-| Passport modal + Space Relic Historian certificate (print + PNG download) | `src/components/PassportModal.jsx`, `src/components/Certificate.jsx` |
-| All story text, dates, coordinates, quiz, stamps, NASA URLs | `src/data/missionData.js` |
+| Typewriter dialogue with synced clicks | `src/components/Dialogue.jsx`, `src/hooks/useTypewriter.js` |
+| Splash, onboarding, mission map | `src/views/SplashView.jsx`, `OnboardingView.jsx`, `HubView.jsx` |
+| Parallax surface walk, locked devices, radar, minimap | `src/views/SurfaceView.jsx`, `src/components/DeviceSilhouette.jsx` |
+| Split-screen story + 3D viewer | `src/views/StoryView.jsx`, `src/components/ModelPanel.jsx` |
+| Mission film player | `src/components/VideoPanel.jsx` |
+| NASA archive photographs as polaroids | `src/components/ArchiveFrames.jsx`, `src/lib/mission.js` |
+| Quiz, stamp slam, passport, certificate | `src/components/Quiz.jsx`, `StampSlam.jsx`, `PassportModal.jsx`, `Certificate.jsx` |
 
-## Sound design (no audio files)
+**Changing content:** edit `src/data/missionData.js`. Every NASA model and image URL lives in the `ASSETS` block at the top; chapter prose is `chapters[].paragraphs`; device positions on the panoramas are `panoramaPosition.x` (0–1 across the track) and `.y` (0–1 down the screen). Changes to the story text, the film summaries or the files in `src/knowledge/docs/` flow into the chatbot automatically — the corpus is rebuilt on load, with no index to regenerate.
 
-Everything is synthesized live in `SoundEngine.js`:
+---
 
-- **Ambient drone:** detuned A-root oscillators (27.5–165 Hz) through a slowly breathing low-pass filter, plus band-passed "solar wind" noise. Starts on **Enter Airlock**.
-- **Robot typing:** a band-passed noise relay click + a low "thock" per character, with an occasional square-wave telemetry blip on vowels. It runs on its own voice bus with an `AnalyserNode` that drives C.U.R.I.O.'s mouth.
-- **Hover / click:** short sine radar pips.
-- **Travel:** looping noise through a resonant low-pass sweep (110 Hz → 3.4 kHz → 80 Hz) with a gliding sub-bass rumble.
-- **Wrong / right:** detuned square buzz ×2 / E-minor arpeggio chime.
-- **Stamp:** pitch-dropping kick + noise slap + inharmonic metal partials + ratchet clicks, then a detuned-saw Cmaj9 chord opening through a filter, with tremolo bells. A synthetic convolution reverb is generated in code.
+## Troubleshooting
 
-Browsers only allow audio after a click, which is why the first screen is "Click to Initialize Comms."
+- **`crypto.hash is not a function`, or "Vite requires Node.js…"** — Node is too old; install the LTS from nodejs.org.
+- **`Cannot find module @rollup/rollup-…` or `lightningcss…`** — delete `node_modules` and `package-lock.json`, run `npm install` again.
+- **Blank page** — you opened `index.html` directly. Use `OPEN-ME.html` or `npm run dev`.
+- **3D panel says "Model feed offline"** — run `npm run fetch-models` (needs internet), then restart the dev server.
+- **Video panel says "VIDEO FILE NOT FOUND"** — the `.mp4` isn't where it's expected. The panel's **Choose video file** button always works as a fallback.
+- **Chat header says `ARCHIVE MODE`** — no API key in that browser. Paste one into the chat panel, or set `VITE_OPENAI_API_KEY` in `.env.local` and restart.
 
-## Changing content
+---
 
-Edit `src/data/missionData.js`. Every NASA model and image URL is in the `ASSETS` block at the top. Device positions on the panoramas are `panoramaPosition.x` (0 to 1 across the track) and `.y` (0 to 1 down the screen).
+## NASA data and usage
 
-## Notes for judges / NASA usage
+Story facts, photographs, coordinates and 3D models come from the NASA Image and Video Library, the NSSDCA Master Catalog, the NASA/JPL Photojournal, NASA 3D Resources and science.nasa.gov mission pages, used under the [NASA media usage guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/). NASA material is credited throughout and linked back to its source page.
 
-- Images and 3D models: NASA, used under the [NASA media usage guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/). No NASA logos or insignia are used. The mission patches are original SVG designs.
-- The certificate is titled "Space Relic Historian" and says it is a NASA Space Apps Challenge project, not an official NASA document. That follows NASA's rule against implying endorsement.
-- Voyager 1 (a locked Deep Space device) was added beyond the provided resource list for its live "one light-day from Earth" milestone on 2026-11-18. Swap it for Pioneer 11 in `missionData.js` if you must stay inside the list.
+**No NASA logo, insignia or seal is used anywhere.** The three mission patches and the certificate are original artwork, and the certificate states that it is a NASA Space Apps Challenge project rather than an official NASA document.
+
+Three honest caveats are recorded in the app's own data notes: "My battery is low and it's getting dark" is a reporter's paraphrase of Opportunity's final telemetry, not a transmitted message; Apollo event dates cross midnight UT, so US-local dates can read a day earlier; and Earth-side coordinates and Opportunity's final resting position are approximate and flagged as such.

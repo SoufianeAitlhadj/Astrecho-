@@ -1,0 +1,18 @@
+node_modules
+dist
+dist-standalone
+.DS_Store
+.vercel
+
+# API keys — never commit these
+.env
+.env.local
+.env.*.local
+
+# 3D models are fetched at build time (`npm run fetch-models`), not committed.
+# On Vercel, set the build command to: npm run fetch-models && npm run build
+public/models/*.glb
+
+# The mission films ARE committed (~103 MB total) so they ship with the Vercel
+# deployment. If the repo gets too heavy, move them to a CDN / Vercel Blob and
+# put the absolute URL in VIDEOS[...].src in src/data/missionData.js instead.

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IdCard, Volume2, VolumeX } from "lucide-react";
+import { IdCard, MessageCircle, Volume2, VolumeX } from "lucide-react";
 import { useProfile } from "../context/ProfileContext";
 import { useSound } from "../context/SoundContext";
 import HudButton from "./HudButton";
@@ -14,7 +14,7 @@ function UtcClock() {
   return <span>{now.toISOString().slice(11, 19)} UTC</span>;
 }
 
-export default function HudBar({ onOpenPassport, location, stampPulse = 0 }) {
+export default function HudBar({ onOpenPassport, onAskCurio, location, stampPulse = 0 }) {
   const { profile, stampCount, passportButtonRef } = useProfile();
   const { muted, toggleMute } = useSound();
 
@@ -26,8 +26,8 @@ export default function HudBar({ onOpenPassport, location, stampPulse = 0 }) {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok/60" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ok" />
           </span>
-          <span className="font-mono text-[11px] tracking-[0.28em] text-parchment/90">C.U.R.I.O. ARCHIVE</span>
-          <span className="hidden font-mono text-[10px] tracking-[0.2em] text-parchment/40 lg:inline">
+          <span className="font-mono text-[10px] tracking-[0.28em] text-parchment/90">C.U.R.I.O. ARCHIVE</span>
+          <span className="hidden font-mono text-[9px] tracking-[0.2em] text-parchment/40 lg:inline">
             UPLINK · <UtcClock />
           </span>
         </div>
@@ -50,6 +50,10 @@ export default function HudBar({ onOpenPassport, location, stampPulse = 0 }) {
         <div className="flex-1 md:hidden" />
 
         <div className="flex items-center gap-2 md:gap-3">
+          <HudButton variant="ghost" onClick={onAskCurio} className="!px-3 !py-2" aria-label="Ask C.U.R.I.O.">
+            <MessageCircle size={14} />
+            <span className="hidden md:inline">Ask C.U.R.I.O.</span>
+          </HudButton>
           <AnimatePresence>
             {profile.name && (
               <motion.div

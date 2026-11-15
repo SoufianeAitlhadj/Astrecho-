@@ -127,7 +127,7 @@ export default function StampSlam({ reward, destinationName, onDone }) {
               animate={{ scale: 1, opacity: 0.92, x: "-50%", y: "-50%", rotate: -14 }}
               transition={{ duration: 0.18, delay: 0.05 }}
             >
-              <div className="text-xl tracking-[0.25em]">STAMPED</div>
+              <div className="text-base tracking-[0.25em]">STAMPED</div>
               <div className="text-[10px] tracking-[0.4em]">VERIFIED · C.U.R.I.O.</div>
             </motion.div>
           )}
@@ -141,8 +141,8 @@ export default function StampSlam({ reward, destinationName, onDone }) {
           transition={{ duration: 0.5, delay: phase === "impact" ? 0.35 : 0 }}
         >
           <p className="font-mono text-[11px] tracking-[0.45em] text-amber">PASSPORT STAMP · {destinationName.toUpperCase()}</p>
-          <h3 className="mt-2 font-serif text-5xl text-parchment md:text-6xl">{reward.title}</h3>
-          <p className="mt-1 font-serif text-xl italic text-parchment/70">{reward.subtitle}</p>
+          <h3 className="mt-2 font-serif text-3xl text-parchment md:text-4xl">{reward.title}</h3>
+          <p className="mt-1 font-serif text-base italic text-parchment/70">{reward.subtitle}</p>
           <p className="mt-4 font-mono text-xs tracking-[0.3em] text-parchment/60">
             UNLOCK CODE <span className="text-signal">{reward.unlockCode}</span> · {reward.stampText}
           </p>

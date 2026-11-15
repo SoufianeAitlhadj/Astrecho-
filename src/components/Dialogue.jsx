@@ -14,7 +14,7 @@ export default function Dialogue({
   speaker = "C.U.R.I.O.",
   channel = "CH-07 // ARCHIVE UPLINK",
   className = "",
-  textClassName = "text-lg md:text-xl",
+  textClassName = "text-sm md:text-base",
   speed = 24,
 }) {
   const { shown, done, skip } = useTypewriter(text, { speed, onDone });

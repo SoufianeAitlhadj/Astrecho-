@@ -59,7 +59,7 @@ function Polaroid({ frame, index, feature = false }) {
         </span>
       </div>
       <figcaption className="mt-2.5 px-0.5">
-        <p className="font-serif text-[15px] leading-snug text-[#1b1d26]">{frame.title}</p>
+        <p className="font-serif text-[13px] leading-snug text-[#1b1d26]">{frame.title}</p>
         <a
           href={frame.link}
           target="_blank"

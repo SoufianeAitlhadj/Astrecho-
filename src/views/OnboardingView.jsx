@@ -21,11 +21,11 @@ function MiniPassport({ name, passportNo }) {
       style={{ background: "linear-gradient(135deg,#0d1424,#131c33 55%,#0a0e19)" }}
     >
       <p className="font-mono text-[9px] tracking-[0.35em] text-[#c9a24a]">{onboarding.passport.issuedBy.toUpperCase()}</p>
-      <p className="font-serif text-2xl text-parchment">{onboarding.passport.title.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}</p>
+      <p className="font-serif text-lg text-parchment">{onboarding.passport.title.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}</p>
       <div className="mt-3 flex items-end justify-between border-t border-white/10 pt-3">
         <div>
           <p className="hud-label text-[8px]">Holder</p>
-          <p className="font-serif text-3xl text-parchment">{fillTemplate(onboarding.passport.holderLabel, { name })}</p>
+          <p className="font-serif text-xl text-parchment">{fillTemplate(onboarding.passport.holderLabel, { name })}</p>
           <p className="font-mono text-[10px] tracking-[0.2em] text-amber">{passportNo}</p>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function OnboardingView({ onComplete }) {
                       }}
                       placeholder={step.input.placeholder}
                       aria-label="Your first name"
-                      className="w-full border border-white/20 bg-black/40 py-3.5 pl-32 pr-4 font-mono text-base tracking-[0.12em] text-parchment outline-none placeholder:text-parchment/30 focus:border-amber"
+                      className="w-full border border-white/20 bg-black/40 py-3.5 pl-32 pr-4 font-mono text-[13px] tracking-[0.12em] text-parchment outline-none placeholder:text-parchment/30 focus:border-amber"
                     />
                   </div>
                   <HudButton variant="primary" type="submit" onClick={undefined} silent>

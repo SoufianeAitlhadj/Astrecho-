@@ -63,7 +63,7 @@ export default function SplashView({ onEnter }) {
               INCOMING TRANSMISSION · NASA SPACE APPS · STORYTELLING
             </motion.p>
             <motion.h1
-              className="mt-8 font-serif text-6xl leading-[0.95] text-parchment text-balance md:text-8xl"
+              className="mt-8 font-serif text-4xl leading-[0.95] text-parchment text-balance md:text-6xl"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -71,7 +71,7 @@ export default function SplashView({ onEnter }) {
               The Machines <em className="text-amber">We Left</em> Behind
             </motion.h1>
             <motion.p
-              className="mt-6 max-w-xl font-serif text-xl italic text-parchment/65 md:text-2xl"
+              className="mt-6 max-w-xl font-serif text-base italic text-parchment/65 md:text-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.4, delay: 1 }}

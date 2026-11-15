@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Award, ChevronDown, ExternalLink, IdCard, Map as MapIcon } from "lucide-react";
+import { ArrowLeft, Award, ChevronDown, IdCard, Map as MapIcon } from "lucide-react";
 import { destinations, fillTemplate } from "../data/missionData";
 import { useProfile } from "../context/ProfileContext";
 import ModelPanel from "../components/ModelPanel";
@@ -12,13 +12,13 @@ import HudFrame from "../components/HudFrame";
 import Quiz from "../components/Quiz";
 import StampSlam from "../components/StampSlam";
 import Patch from "../components/Patch";
-import { modelKeyFor, pullQuoteFor } from "../lib/mission";
+import VideoPanel from "../components/VideoPanel";
+import { modelKeyFor } from "../lib/mission";
 
 function Chapter({ chapter, index, total, registerRef }) {
-  const quote = useMemo(() => pullQuoteFor(chapter), [chapter]);
   const m = chapter.metadata;
   return (
-    <section ref={registerRef} data-index={index} className="relative py-24 md:py-32">
+    <section ref={registerRef} data-index={index} className="relative py-16 md:py-24">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.9 }}>
         <div className="flex flex-wrap items-center gap-3">
           <span className="font-mono text-[11px] tracking-[0.3em] text-amber">
@@ -27,74 +27,40 @@ function Chapter({ chapter, index, total, registerRef }) {
           <span className="h-px w-10 bg-white/20" />
           <span className="font-mono text-[10px] tracking-[0.2em] text-parchment/50">{m.dateDisplay.toUpperCase()}</span>
         </div>
-        <h2 className="mt-4 font-serif text-5xl leading-[1.02] text-parchment text-balance md:text-6xl">{chapter.title}</h2>
+        <h2 className="mt-4 font-serif text-2xl leading-[1.05] text-parchment text-balance md:text-3xl">{chapter.title}</h2>
       </motion.div>
 
-      <div className="mt-10 space-y-6">
-        {chapter.paragraphs.map((p, i) => (
-          <motion.p
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.8, delay: 0.05 }}
-            className={`font-serif text-[21px] leading-[1.6] text-parchment/85 md:text-[23px] ${i === 0 ? "dropcap" : ""}`}
-          >
-            {p}
-          </motion.p>
-        ))}
-      </div>
-
-      <motion.blockquote
-        initial={{ opacity: 0, scale: 0.97 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: 1.1 }}
-        className="relative my-16 border-l border-amber/60 pl-6 md:pl-10"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.8 }}
+        className="mt-6 max-w-[62ch] space-y-4"
       >
-        <span className="absolute -left-2 -top-10 font-serif text-8xl leading-none text-amber/30">&ldquo;</span>
-        <p className="font-serif text-3xl italic leading-[1.2] text-parchment text-balance md:text-[42px]">{quote.text}</p>
-      </motion.blockquote>
+        {chapter.paragraphs.map((p, i) => (
+          <p key={i} className={`text-[13px] leading-[1.75] text-parchment/80 ${i === 0 ? "dropcap" : ""}`}>
+            {p}
+          </p>
+        ))}
+      </motion.div>
 
-      <ArchiveFrames chapter={chapter} />
+      <div className="mt-10">
+        <ArchiveFrames chapter={chapter} />
+      </div>
 
       <motion.div
         initial={{ opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 0.7 }}
-        className="mt-14 flex items-start gap-4"
+        className="mt-12 flex items-start gap-4"
       >
         <CurioAvatar size={64} className="shrink-0" />
         <div className="hud-glass relative rounded-sm rounded-tl-none px-5 py-4">
           <p className="font-mono text-[10px] tracking-[0.25em] text-amber">C.U.R.I.O. ADDS</p>
-          <p className="mt-1 text-[16px] leading-relaxed text-parchment/85">{chapter.curioAside}</p>
+          <p className="mt-1 text-[13px] leading-relaxed text-parchment/85">{chapter.curioAside}</p>
         </div>
       </motion.div>
-
-      <details className="group mt-8 border-t border-white/10 pt-4">
-        <summary className="flex cursor-pointer list-none items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-parchment/50 hover:text-parchment/80">
-          <ChevronDown size={12} className="transition group-open:rotate-180" /> MISSION FILE · PEOPLE &amp; SOURCES
-        </summary>
-        <div className="mt-4 grid gap-6 md:grid-cols-2">
-          <ul className="space-y-1.5">
-            {m.people.map((p) => (
-              <li key={p.name} className="text-sm text-parchment/75">
-                <span className="text-parchment">{p.name}</span> · <span className="text-parchment/55">{p.role}</span>
-              </li>
-            ))}
-          </ul>
-          <ul className="space-y-1.5">
-            {m.sources.map((s) => (
-              <li key={s}>
-                <a href={s} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 break-all font-mono text-[10px] text-signal/80 hover:text-signal">
-                  {s.replace(/^https?:\/\//, "").slice(0, 70)} <ExternalLink size={10} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </details>
     </section>
   );
 }
@@ -151,16 +117,18 @@ export default function StoryView({ destination, onBack, onHub, onOpenPassport, 
             <ArrowLeft size={14} /> Back to surface
           </HudButton>
           <p className="font-mono text-[11px] tracking-[0.35em] text-signal">SIGNAL DECODED · {destination.name.toUpperCase()}</p>
-          <h1 className="mt-4 font-serif text-6xl leading-[0.95] text-parchment text-balance md:text-7xl">{device.name}</h1>
+          <h1 className="mt-4 font-serif text-4xl leading-[0.95] text-parchment text-balance md:text-5xl">{device.name}</h1>
           {device.whatYouSee && <p className="mt-4 font-mono text-[11px] tracking-[0.15em] text-parchment/50">{device.whatYouSee.toUpperCase()}</p>}
           <div className="mt-10 flex items-start gap-4">
             <CurioAvatar size={96} speaking={speaking} className="shrink-0" />
-            <Dialogue text={fillTemplate(device.heroIntro, { name: profile.name })} onSpeakingChange={setSpeaking} textClassName="text-lg" />
+            <Dialogue text={fillTemplate(device.heroIntro, { name: profile.name })} onSpeakingChange={setSpeaking} textClassName="text-sm" />
           </div>
           <motion.div className="mt-14 flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] text-parchment/50" animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-            <ChevronDown size={14} /> SCROLL TO READ THE STORY
+            <ChevronDown size={14} /> SCROLL TO EXPLORE
           </motion.div>
         </div>
+
+        <VideoPanel video={device.video} />
 
         {device.chapters.map((c, i) => (
           <Chapter key={c.number} chapter={c} index={i} total={device.chapters.length} registerRef={(el) => (refs.current[i] = el)} />
@@ -178,7 +146,7 @@ export default function StoryView({ destination, onBack, onHub, onOpenPassport, 
                   <Patch svg={reward.patch.svg} size={150} title={reward.title} style={{ transform: `rotate(${reward.ink.rotationDeg}deg)` }} />
                   <div>
                     <p className="font-mono text-[11px] tracking-[0.3em] text-amber">STAMP {stampCount} OF 3 · {reward.unlockCode}</p>
-                    <h3 className="mt-2 font-serif text-5xl text-parchment">{reward.title}</h3>
+                    <h3 className="mt-2 font-serif text-3xl text-parchment">{reward.title}</h3>
                     <p className="mx-auto mt-3 max-w-md text-parchment/70">
                       {allDone
                         ? `That's all three, Astronaut ${profile.name}. Your Space Relic Historian Certificate is unlocked in your passport.`

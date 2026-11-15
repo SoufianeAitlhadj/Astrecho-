@@ -53,7 +53,7 @@ export default function Quiz({ quiz, name, onPass, alreadyStamped = false }) {
           <Dialogue
             text={feedback ? feedback.text : started ? `${fillTemplate(quiz.intro, { name })}` : OPENER}
             onSpeakingChange={setSpeaking}
-            textClassName="text-lg md:text-xl"
+            textClassName="text-sm md:text-base"
             channel={started ? `QUESTION ${qi + 1} / ${quiz.questions.length}` : "PASSPORT CONTROL"}
           >
             {!started && (
@@ -71,7 +71,7 @@ export default function Quiz({ quiz, name, onPass, alreadyStamped = false }) {
             <p className="font-mono text-[10px] tracking-[0.3em] text-amber">
               QUESTION {qi + 1} OF {quiz.questions.length}
             </p>
-            <h4 className="mt-2 font-serif text-3xl leading-tight text-parchment md:text-4xl">{q.question}</h4>
+            <h4 className="mt-2 font-serif text-xl leading-tight text-parchment md:text-2xl">{q.question}</h4>
             <motion.div
               key={shakeKey}
               animate={shakeKey ? { x: [0, -10, 9, -6, 4, 0] } : {}}
@@ -105,7 +105,7 @@ export default function Quiz({ quiz, name, onPass, alreadyStamped = false }) {
                     >
                       {isRight ? <Check size={14} /> : isWrong ? <X size={14} /> : String.fromCharCode(65 + i)}
                     </span>
-                    <span className="text-base md:text-[17px]">{opt.text}</span>
+                    <span className="text-[13px] md:text-[14px]">{opt.text}</span>
                   </button>
                 );
               })}

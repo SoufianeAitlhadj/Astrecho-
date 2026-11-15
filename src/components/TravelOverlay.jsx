@@ -27,7 +27,7 @@ export default function TravelOverlay({ destination, name, duration = 2.8 }) {
         SEATBELT ON, ASTRONAUT {name?.toUpperCase()} · NEXT STOP
       </motion.p>
       <motion.h2
-        className="relative mt-4 font-serif text-6xl text-parchment md:text-8xl"
+        className="relative mt-4 font-serif text-4xl text-parchment md:text-6xl"
         initial={{ opacity: 0, scale: 1.25, filter: "blur(12px)", letterSpacing: "0.2em" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)", letterSpacing: "0em" }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
@@ -37,7 +37,7 @@ export default function TravelOverlay({ destination, name, duration = 2.8 }) {
       <p className="relative mt-3 font-mono text-xs tracking-[0.3em] text-parchment/50">{destination.surfaceName.toUpperCase()}</p>
       <motion.div
         key={n}
-        className="relative mt-10 font-mono text-5xl text-signal"
+        className="relative mt-10 font-mono text-3xl text-signal"
         initial={{ opacity: 0, scale: 1.6 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35 }}
