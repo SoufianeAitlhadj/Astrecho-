@@ -203,6 +203,8 @@ The models are then fetched at build time and bundled into the deployment. If NA
 
 ## NASA data and usage
 
+**[CREDITS.md](CREDITS.md) lists every resource used** — each NASA portal, mission page, photograph, 3D model and API, the non-NASA references, and the tools and libraries, with links.
+
 Story facts, photographs, coordinates and 3D models come from the NASA Image and Video Library, the NSSDCA Master Catalog, the NASA/JPL Photojournal, NASA 3D Resources and science.nasa.gov mission pages, used under the [NASA media usage guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/). NASA material is credited throughout and linked back to its source page.
 
 **No NASA logo, insignia or seal is used anywhere.** The three mission patches and the certificate are original artwork, and the certificate states that it is a NASA Space Apps Challenge project rather than an official NASA document.
