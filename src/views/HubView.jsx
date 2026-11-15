@@ -6,6 +6,7 @@ import { useProfile } from "../context/ProfileContext";
 import CurioAvatar from "../components/CurioAvatar";
 import Dialogue from "../components/Dialogue";
 import HudFrame from "../components/HudFrame";
+import PageNote from "../components/PageNote";
 import PlanetOrb from "../components/PlanetOrb";
 import Patch from "../components/Patch";
 import { sound } from "../audio/SoundEngine";
@@ -98,6 +99,8 @@ export default function HubView({ onSelect, returning }) {
         </p>
         <p className="font-mono text-[10px] tracking-[0.18em] text-parchment/45">STAMPS {stampCount}/3</p>
       </HudFrame>
+
+      <PageNote className="mt-8" />
     </div>
   );
 }

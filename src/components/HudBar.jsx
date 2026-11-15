@@ -4,6 +4,7 @@ import { IdCard, MessageCircle, Volume2, VolumeX } from "lucide-react";
 import { useProfile } from "../context/ProfileContext";
 import { useSound } from "../context/SoundContext";
 import HudButton from "./HudButton";
+import { SiMark } from "./SiWatermark";
 
 function UtcClock() {
   const [now, setNow] = useState(() => new Date());
@@ -21,18 +22,28 @@ export default function HudBar({ onOpenPassport, onAskCurio, location, stampPuls
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-14 border-b border-white/10 bg-obsidian/70 backdrop-blur-md">
       <div className="mx-auto flex h-full items-center gap-4 px-4 md:px-6">
-        <div className="flex items-center gap-3">
-          <span className="relative flex h-2.5 w-2.5">
+        <div className="flex shrink-0 items-center gap-2.5 whitespace-nowrap sm:gap-3">
+          <span className="relative hidden h-2.5 w-2.5 sm:flex">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok/60" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ok" />
           </span>
-          <span className="font-mono text-[10px] tracking-[0.28em] text-parchment/90">C.U.R.I.O. ARCHIVE</span>
-          <span className="hidden font-mono text-[9px] tracking-[0.2em] text-parchment/40 lg:inline">
+          <span className="font-mono text-[10px] tracking-[0.28em] text-parchment/90">
+            C.U.R.I.O.<span className="hidden sm:inline"> ARCHIVE</span>
+          </span>
+          {/* Supersintelligence watermark — rides the HUD bar, so it is on every screen. */}
+          <span className="hidden h-5 w-px bg-white/15 sm:block" />
+          <span className="hidden xl:block">
+            <SiMark label />
+          </span>
+          <span className="block xl:hidden">
+            <SiMark />
+          </span>
+          <span className="hidden font-mono text-[9px] tracking-[0.2em] text-parchment/40 2xl:inline">
             UPLINK · <UtcClock />
           </span>
         </div>
 
-        <div className="hidden flex-1 justify-center md:flex">
+        <div className="hidden min-w-0 flex-1 justify-center xl:flex">
           <AnimatePresence mode="wait">
             {location && (
               <motion.span
@@ -40,14 +51,14 @@ export default function HudBar({ onOpenPassport, onAskCurio, location, stampPuls
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
-                className="font-mono text-[10px] tracking-[0.22em] text-signal/80"
+                className="truncate whitespace-nowrap font-mono text-[10px] tracking-[0.22em] text-signal/80"
               >
                 {location}
               </motion.span>
             )}
           </AnimatePresence>
         </div>
-        <div className="flex-1 md:hidden" />
+        <div className="flex-1 xl:hidden" />
 
         <div className="flex items-center gap-2 md:gap-3">
           <HudButton variant="ghost" onClick={onAskCurio} className="!px-3 !py-2" aria-label="Ask C.U.R.I.O.">

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { FolderOpen, Film } from "lucide-react";
+import { FolderOpen, Film, Sparkles } from "lucide-react";
 import HudFrame from "./HudFrame";
 
 /**
@@ -55,6 +55,17 @@ export default function VideoPanel({ video, label = "MISSION VIDEO" }) {
           </div>
         )}
       </HudFrame>
+
+      {/* Honest label: this film is AI-generated. */}
+      <div className="mt-3 flex items-start gap-2 border-l border-amber/40 pl-3">
+        <Sparkles size={12} className="mt-[3px] shrink-0 text-amber/80" />
+        <p className="max-w-[70ch] font-mono text-[10px] leading-[1.7] tracking-[0.06em] text-parchment/55">
+          <span className="tracking-[0.18em] text-amber/90">AI-GENERATED FILM.</span> This video was generated using AI
+          in a Vox-style edit from real NASA photographs and mission records, and the narration was synthesized with the
+          ElevenLabs API. The facts are NASA's — the images, the voice and the motion are synthetic.
+        </p>
+      </div>
+
       {!failed && (
         <button type="button" onClick={() => inputRef.current?.click()} className="mt-2 font-mono text-[9px] tracking-[0.2em] text-parchment/40 hover:text-parchment/70">
           CHANGE VIDEO FILE

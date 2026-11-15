@@ -9,6 +9,7 @@ import CurioAvatar from "../components/CurioAvatar";
 import Dialogue from "../components/Dialogue";
 import HudButton from "../components/HudButton";
 import HudFrame from "../components/HudFrame";
+import PageNote from "../components/PageNote";
 import Quiz from "../components/Quiz";
 import StampSlam from "../components/StampSlam";
 import Patch from "../components/Patch";
@@ -166,6 +167,8 @@ export default function StoryView({ destination, onBack, onHub, onOpenPassport, 
             )}
           </AnimatePresence>
         </section>
+
+        <PageNote className="pb-14" />
       </div>
 
       <AnimatePresence>{slam && <StampSlam reward={reward} destinationName={destination.name} onDone={finishSlam} />}</AnimatePresence>

@@ -7,6 +7,7 @@ import CurioAvatar from "../components/CurioAvatar";
 import Dialogue from "../components/Dialogue";
 import DeviceSilhouette from "../components/DeviceSilhouette";
 import HudButton from "../components/HudButton";
+import PageNote from "../components/PageNote";
 import { daysUntil } from "../lib/mission";
 import { sound } from "../audio/SoundEngine";
 
@@ -484,6 +485,9 @@ export default function SurfaceView({ destination, onBack, onDiscover }) {
           })}
         </div>
       </div>
+
+      {/* On phones it sits above the minimap and the floating chat button. */}
+      <PageNote compact className="absolute inset-x-0 bottom-32 z-20 sm:bottom-1" />
     </div>
   );
 }

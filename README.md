@@ -37,6 +37,8 @@ It is meant to be *lived*, not read. Every screen has a synthesized soundscape, 
 
 **The narration** — generated with the **ElevenLabs API** using the **Vincent** voice, chosen for its deep, relaxed delivery: the voice of someone telling you a story rather than reading you a report.
 
+**Labelling and watermark** — every page carries the **Supersintelligence (SI)** watermark: a badge in the HUD bar that is on screen at all times, a quiet vertical mark on the left edge, and a credit line in the note that closes each page. Each film also carries an **AI-GENERATED FILM** label directly under the player, stating that the visuals were generated with AI from real NASA photographs and mission records and that the narration was synthesized with ElevenLabs — the facts are NASA's, the images, voice and motion are synthetic.
+
 **The sound effects** — not files. Every sound in the app is **synthesized live in the browser** with the Web Audio API: a detuned ambient drone that breathes through a moving low-pass filter, relay-click typing that drives C.U.R.I.O.'s mouth in real time, radar pips on hover, a resonant sweep for warp travel, and a stamp impact built from a pitch-dropping kick, inharmonic metal partials and a Cmaj9 chord through a reverb generated in code.
 
 ---

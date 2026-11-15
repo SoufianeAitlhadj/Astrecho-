@@ -7,6 +7,7 @@ import CurioAvatar from "../components/CurioAvatar";
 import Dialogue from "../components/Dialogue";
 import HudButton from "../components/HudButton";
 import HudFrame from "../components/HudFrame";
+import PageNote from "../components/PageNote";
 import { sound } from "../audio/SoundEngine";
 
 const STEPS = onboarding.steps.filter((s) => s.id !== "launch");
@@ -167,6 +168,8 @@ export default function OnboardingView({ onComplete }) {
           <span key={s.id} className={`h-0.5 transition-all duration-500 ${n <= i ? "w-6 bg-amber" : "w-3 bg-white/20"}`} />
         ))}
       </div>
+
+      <PageNote className="mt-10" />
     </div>
   );
 }

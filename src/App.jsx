@@ -8,6 +8,7 @@ import Starfield from "./components/Starfield";
 import AskCurio from "./components/AskCurio";
 import HudBar from "./components/HudBar";
 import PassportModal from "./components/PassportModal";
+import SiWatermark from "./components/SiWatermark";
 import TravelOverlay from "./components/TravelOverlay";
 import SplashView from "./views/SplashView";
 import OnboardingView from "./views/OnboardingView";
@@ -131,6 +132,7 @@ export default function App() {
 
       <div className="film-grain" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />
+      <SiWatermark />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Radio } from "lucide-react";
 import HudButton from "../components/HudButton";
 import HudFrame from "../components/HudFrame";
+import PageNote from "../components/PageNote";
 import { sound } from "../audio/SoundEngine";
 
 const CHECKS = [
@@ -140,6 +141,9 @@ export default function SplashView({ onEnter }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* On phones it sits above the floating Ask C.U.R.I.O. button. */}
+      <PageNote compact className="absolute inset-x-0 bottom-20 z-20 sm:bottom-3" />
     </div>
   );
 }
